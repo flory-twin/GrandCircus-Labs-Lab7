@@ -38,8 +38,8 @@ class ValidatorTest
    public void testIsEmailValid()
    {
 String methodId = "testIsEmailValid(): ";
-      
       Validator underTest = new Validator();
+      
       assertFalse(underTest.isEmailValid("ab@abcde.com"),
             caseId + methodId + "An email having the first part less than 5 characters should not have been valid.");
       assertFalse(underTest.isEmailValid("abcdefghijklmnopqrstuvwxyzabcde@abcde.com"),
@@ -76,15 +76,47 @@ String methodId = "testIsEmailValid(): ";
             caseId + methodId + "An otherwise valid email with 3 alphanumerics in the top-level domain should have been valid.");
       assertTrue(underTest.isEmailValid("abcde@fghijklmno.0a"),
             caseId + methodId + "An otherwise valid email with 2 alphanumerics in the top-level domain should have been valid.");
-      //Still need to test requirements on domain.
-      
    }
    
    @Test
    public void testIsPhoneNumberValid() {
-      //isPhoneNumberValid(String phoneNumber)
-      fail("Not yet implemented.");
+      String methodId = "testIsPhoneNumberValid(): ";
+      Validator underTest = new Validator();
       
+      assertFalse(underTest.isPhoneNumberValid("1a3-456-7890"),
+            caseId + methodId + "An otherwise valid phone number with an alphabetic character in the numbering plan area code should not have been valid.");
+      assertFalse(underTest.isPhoneNumberValid("1%3-456-7890"),
+            caseId + methodId + "An otherwise valid phone number with a special character in the numbering plan area code should not have been valid.");
+      assertFalse(underTest.isPhoneNumberValid("13-456-7890"),
+            caseId + methodId + "An otherwise valid phone number with less than 3 digits in the numbering plan area code should not have been valid.");
+      assertFalse(underTest.isPhoneNumberValid("1230-456-7890"),
+            caseId + methodId + "An otherwise valid phone number with more than 3 digits in the numbering plan area code should not have been valid.");
+      
+      assertFalse(underTest.isPhoneNumberValid("123-4a6-7890"),
+            caseId + methodId + "An otherwise valid phone number with an alphabetic character in the exchange code should not have been valid.");
+      assertFalse(underTest.isPhoneNumberValid("123-4)6-7890"),
+            caseId + methodId + "An otherwise valid phone number with a special character in the exchange code should not have been valid.");
+      assertFalse(underTest.isPhoneNumberValid("123-46-7890"),
+            caseId + methodId + "An otherwise valid phone number with less than 3 digits in the exchange code should not have been valid.");
+      assertFalse(underTest.isPhoneNumberValid("123-4560-7890"),
+            caseId + methodId + "An otherwise valid phone number with more than 3 digits in the exchange code should not have been valid.");
+      
+      assertFalse(underTest.isPhoneNumberValid("123-456-7a90"),
+            caseId + methodId + "An otherwise valid phone number with an alphabetic character in the line number should not have been valid.");
+      assertFalse(underTest.isPhoneNumberValid("123-456-7-90"),
+            caseId + methodId + "An otherwise valid phone number with a special character in the line number should not have been valid.");
+      assertFalse(underTest.isPhoneNumberValid("123-456-789"),
+            caseId + methodId + "An otherwise valid phone number with less than 4 digits in the line number should not have been valid.");
+      assertFalse(underTest.isPhoneNumberValid("1230-456-78901"),
+            caseId + methodId + "An otherwise valid phone number with more than 4 digits in the line number should not have been valid.");
+      
+      assertFalse(underTest.isPhoneNumberValid("1234567890"),
+            caseId + methodId + "An otherwise valid phone number without divider symbols should not have been valid.");
+      assertFalse(underTest.isPhoneNumberValid("123.456.7890"),
+            caseId + methodId + "An otherwise valid phone number with a divider symbol other than '-' should not have been valid.");
+      
+      assertTrue(underTest.isPhoneNumberValid("123-456-7890"),
+            caseId + methodId + "A phone number having a 3-digit numbering plan area code, a 3-digit exchange code, and a 4-digit line number should have been valid.");      
    }
    
    @Test

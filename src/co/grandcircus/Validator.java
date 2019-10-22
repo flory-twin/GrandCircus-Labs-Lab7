@@ -15,8 +15,7 @@ public class Validator
    
    public boolean isPhoneNumberValid(String phoneNumber)
    {
-      //return phoneNumber.matches("\\d{3}-\\d{3}-\\d{4}");
-      return false;
+      return phoneNumber.matches("\\d{3}-\\d{3}-\\d{4}");
    }
    
    public boolean isDateValid(String date)

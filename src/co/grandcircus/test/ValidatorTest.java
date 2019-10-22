@@ -37,8 +37,38 @@ class ValidatorTest
    @Test
    public void testIsEmailValid()
    {
-      //isEmailValid(String email)
-      fail("Not yet implemented.");
+String methodId = "testIsEmailValid(): ";
+      
+      Validator underTest = new Validator();
+      assertFalse(underTest.isEmailValid("ab@abcde.com"),
+            caseId + methodId + "An email having the first part less than 5 characters should not have been valid.");
+      assertFalse(underTest.isEmailValid("abcdefghijklmnopqrstuvwxyzabcde@abcde.com"),
+            caseId + methodId + "An email having the first part greater than 30 characters should not have been valid.");
+      assertFalse(underTest.isEmailValid("ab$cde@abcde.com"),
+            caseId + methodId + "An email having non-alphanumeric characters in the first part should not have been valid.");
+      
+      assertTrue(underTest.isEmailValid("abcde1@abcde.com"),
+            caseId + methodId + "An otherwise valid email having digits in the first part should have been valid.");
+      assertTrue(underTest.isEmailValid("abcdefghijklmnopqrstuvwxyzabcd@abcde.com"),
+            caseId + methodId + "An otherwise valid email having 30 characters in the first part should have been valid.");
+      
+      assertFalse(underTest.isEmailValid("abcdefghijklmnop.com"),
+            caseId + methodId + "An email lacking the @ symbol should not have been valid.")
+      
+      assertFalse(underTest.isEmailValid("abcde@fghi.com"),
+            caseId + methodId + "An email having less than 5 characters in the second part should not have been valid.");
+      assertFalse(underTest.isEmailValid("abcde@fghijklmnop.com"),
+            caseId + methodId + "An email having more than 10 characters in the second part should not have been valid.");
+      assertFalse(underTest.isEmailValid("abcde@fghijklmn$.com"),
+            caseId + methodId + "An email with special characters in the second part should not have been valid.");
+
+      assertTrue(underTest.isEmailValid("abcde@fghijklmno.com"),
+            caseId + methodId + "An otherwise valid email with 10 characters in the second part should have been valid.");
+      assertTrue(underTest.isEmailValid("abcde@fghijklmn1.com"),
+            caseId + methodId + "An otherwise valid email with digits in the second part should have been valid.");
+      
+      //Still need to test requirements on domain.
+      
    }
    
    @Test

@@ -122,7 +122,44 @@ String methodId = "testIsEmailValid(): ";
    @Test
    public void testIsDateValid()
    {
-      //isDateValid(String date)
-      fail("Not yet implemented.");
+      String methodId = "testIsDateValid(): ";
+      Validator underTest = new Validator();
+      
+      assertFalse(underTest.isDateValid("123/12/6789"),
+            caseId + methodId + "An otherwise valid date with three digits for the day should not have been valid.");
+      assertFalse(underTest.isDateValid("1/12/6789"),
+            caseId + methodId + "An otherwise valid date with one digit for the day should not have been valid.");
+      assertFalse(underTest.isDateValid("1a/12/6789"),
+            caseId + methodId + "An otherwise valid date with an alphabetic character in the day should not have been valid.");
+      assertFalse(underTest.isDateValid("00/12/6789"),
+            caseId + methodId + "An otherwise valid date with a day less than 01 should not have been valid.");
+      assertFalse(underTest.isDateValid("32/12/6789"),
+            caseId + methodId + "An otherwise valid date with a day greater than 31 should not have been valid.");
+      
+      assertFalse(underTest.isDateValid("12/123/6789"),
+            caseId + methodId + "An otherwise valid date with three digits for the month should not have been valid.");
+      assertFalse(underTest.isDateValid("01/1/6789"),
+            caseId + methodId + "An otherwise valid date with one digit for the month should not have been valid.");
+      assertFalse(underTest.isDateValid("11/a2/6789"),
+            caseId + methodId + "An otherwise valid date with an alphabetic character in the month should not have been valid.");
+      assertFalse(underTest.isDateValid("01/00/6789"),
+            caseId + methodId + "An otherwise valid date with a month less than 01 should not have been valid.");
+      assertFalse(underTest.isDateValid("30/13/6789"),
+            caseId + methodId + "An otherwise valid date with a month greater than 13 should not have been valid.");
+
+      assertFalse(underTest.isDateValid("12/12/67890"),
+            caseId + methodId + "An otherwise valid date with five digits for the year should not have been valid.");
+      assertFalse(underTest.isDateValid("01/01/789"),
+            caseId + methodId + "An otherwise valid date with three digits for the year should not have been valid.");
+      assertFalse(underTest.isDateValid("11/12/a789"),
+            caseId + methodId + "An otherwise valid date with an alphabetic character in the month should not have been valid.");
+      
+      assertFalse(underTest.isDateValid("01016789"),
+            caseId + methodId + "An otherwise valid date without dividers should not have been valid.");
+      assertFalse(underTest.isDateValid("01-01-6789"),
+            caseId + methodId + "An otherwise valid date with '-' for the dividers should not have been valid.");
+      
+      assertTrue(underTest.isDateValid("01/01/6789"),
+            caseId + methodId + "A date with a day from 01 to 31, a month from 01 to 12, and a year greater than 0 should have been valid.");
    }
 }

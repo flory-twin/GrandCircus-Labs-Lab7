@@ -53,7 +53,7 @@ String methodId = "testIsEmailValid(): ";
             caseId + methodId + "An otherwise valid email having 30 characters in the first part should have been valid.");
       
       assertFalse(underTest.isEmailValid("abcdefghijklmnop.com"),
-            caseId + methodId + "An email lacking the @ symbol should not have been valid.")
+            caseId + methodId + "An email lacking the @ symbol should not have been valid.");
       
       assertFalse(underTest.isEmailValid("abcde@fghi.com"),
             caseId + methodId + "An email having less than 5 characters in the second part should not have been valid.");
@@ -67,6 +67,15 @@ String methodId = "testIsEmailValid(): ";
       assertTrue(underTest.isEmailValid("abcde@fghijklmn1.com"),
             caseId + methodId + "An otherwise valid email with digits in the second part should have been valid.");
       
+      assertFalse(underTest.isEmailValid("abcde@fghijklmno.c$a"),
+            caseId + methodId + "An otherwise valid email with a special character in the top-level domain should not have been valid.");
+      assertFalse(underTest.isEmailValid("abcde@fghijklmno.c"),
+            caseId + methodId + "An otherwise valid email with a single-character top-level domain should not have been valid.");
+      
+      assertTrue(underTest.isEmailValid("abcde@fghijklmno.co1"),
+            caseId + methodId + "An otherwise valid email with 3 alphanumerics in the top-level domain should have been valid.");
+      assertTrue(underTest.isEmailValid("abcde@fghijklmno.0a"),
+            caseId + methodId + "An otherwise valid email with 2 alphanumerics in the top-level domain should have been valid.");
       //Still need to test requirements on domain.
       
    }
